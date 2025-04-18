@@ -1,0 +1,66 @@
+<div
+  *ngIf="product"
+  class="card h-100 shadow-sm border-0 product-card"
+  [ngClass]="{
+    'border-danger': !product.stock,
+    'border-success': product.stock,
+    'text-danger': !product.stock
+  }"
+>
+  <!-- Stock Badge -->
+  <div class="position-absolute top-0 end-0 m-2">
+    <span *ngIf="!product.stock" class="badge bg-danger">Out of Stock</span>
+    <span *ngIf="product.stock && (product.price - product.discountedPrice) > 0" class="badge bg-success">
+      {{ ((product.price - product.discountedPrice) / product.price * 100).toFixed(0) }}% OFF
+    </span>
+  </div>
+
+  <!-- Product Image -->
+  <div class="card-img-container text-center p-4">
+    <img
+      [src]="productService.getProductImageUrl(product.productId)"
+      [alt]="product.title"
+      class="product-image"
+    />
+  </div>
+  
+  <!-- Product Info -->
+  <div class="card-body pt-0">
+    <h5 class="product-title">{{ product.title }}</h5>
+    
+    <div class="product-info">
+      <!-- Product Description - using div instead of p -->
+      <div class="product-description text-secondary mb-3">
+        {{ product.description }}
+      </div>
+      
+      <!-- Product Price -->
+      <div class="price-container mb-3">
+        <p class="mb-0 fw-medium">Price: 
+          <span class="original-price text-decoration-line-through text-muted">₹{{ product.price }}</span>
+          <span class="discounted-price text-success fw-bold">₹{{ product.discountedPrice }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Action Buttons -->
+  <div class="card-footer bg-white border-0 d-grid gap-2">
+    <button
+      (click)="addToCartRequest(product)"
+      class="btn btn-primary fw-medium"
+      [ngClass]="{
+        'btn-primary': product.stock,
+        'btn-danger disabled': !product.stock
+      }"
+    >
+      <i class="bi bi-cart-plus me-2"></i>{{ !product.stock ? "Out of Stock" : "Add to Cart" }}
+    </button>
+    <button
+      [routerLink]="['/product', product.productId]"
+      class="btn btn-warning fw-medium"
+    >
+      <i class="bi bi-eye me-2"></i>View
+    </button>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+/* General Container Styling */
+.container-fluid.mt-5 {
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 8px; /* Rounded corners for the card */
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Body Styling */
+.card-body {
+    padding: 30px;
+}
+
+/* Icon Styling */
+.custom-icon-size {
+    font-size: 3rem; /* Increase the size of the icon */
+    color: #6e45e2; /* Match the icon color to the theme */
+    margin-bottom: 20px; /* Add space below the icon */
+}
+
+/* Heading Styling */
+h3.text-center {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Input and Textarea Styling */
+.form-control {
+    border-radius: 5px; /* Rounded corners for input fields */
+    border: 1px solid #ddd; /* Light border */
+    padding: 12px 16px; /* Comfortable padding for inputs */
+    font-size: 1rem; /* Font size for better readability */
+    transition: border-color 0.3s ease;
+}
+
+/* Focus Effect */
+.form-control:focus {
+    border-color: #6e45e2; /* Border color change on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Textarea Specific Styling */
+textarea.form-control {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Button Styling */
+.btn {
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #6e45e2;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #5d35d4;
+}
+
+.btn-secondary {
+    background-color: #f1f1f1;
+    border: none;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #ddd;
+}
+
+/* Button Container Styling */
+.container.text-center {
+    margin-top: 20px;
+}
+
+/* Reset Button - Styling Adjustments */
+button[type="reset"] {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    color: #333;
+}
+
+button[type="reset"]:hover {
+    background-color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid.mt-5 {
+        padding: 0 10px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    h3.text-center {
+        font-size: 1.6rem;
+    }
+
+    .form-control {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+}

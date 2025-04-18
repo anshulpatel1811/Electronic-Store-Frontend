@@ -1,0 +1,152 @@
+<!-- Content wrapper to ensure vertical centering -->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="login-box">
+      <div class="left-section">
+        <img src="assets/images/create-new-account.avif" alt="Shopping illustration">
+      </div>
+      <div class="right-section">
+        <div class="welcome-text">
+          <h3>Signup here</h3>
+          <p>Create your account.</p>
+        </div>
+        
+        <form class="login-form" novalidate #signupForm="ngForm" (ngSubmit)="formSubmit($event, signupForm)">
+          <!-- Alert message if form is invalid -->
+          <div class="alert alert-danger" [hidden]="signupForm.valid || !signupForm.touched">
+            Form is not valid !!
+          </div>
+          
+          <!-- Username -->
+          <div class="form-group">
+            <label for="name">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter here"
+              name="name"
+              [(ngModel)]="user.name"
+              required
+              #nameField="ngModel"
+            />
+            <span *ngIf="nameField.invalid && nameField.touched" class="error-message">
+              Name is required !!
+            </span>
+          </div>
+          
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter here"
+              name="email"
+              [(ngModel)]="user.email"
+              required
+              email
+              #emailField="ngModel"
+            />
+            <span *ngIf="emailField.invalid && emailField.touched" class="error-message">
+              <small *ngIf="emailField.errors?.['required']">Email is required.</small>
+              <small *ngIf="emailField.errors?.['email']">Please enter a valid email address.</small>
+            </span>
+          </div>
+          
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">New Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter here"
+              name="password"
+              [(ngModel)]="user.password"
+              required
+              minlength="6"
+              #passwordField="ngModel"
+            />
+            <span *ngIf="passwordField.invalid && passwordField.touched" class="error-message">
+              <small *ngIf="passwordField.errors?.['required']">Password is required.</small>
+              <small *ngIf="passwordField.errors?.['minlength']">Password must be at least 6 characters long.</small>
+            </span>
+          </div>
+          
+          <!-- Gender -->
+          <div class="form-group">
+            <label class="d-block">Gender</label>
+            <div class="gender-options">
+              <label class="toggle">
+                <input
+                  type="radio"
+                  name="gender"
+                  [value]="'male'"
+                  [(ngModel)]="user.gender"
+                  required
+                />
+                <span class="radio-button"></span>
+                <span class="toggle-text">Male</span>
+              </label>
+              
+              <label class="toggle">
+                <input
+                  type="radio"
+                  name="gender"
+                  [value]="'female'"
+                  [(ngModel)]="user.gender"
+                  required
+                />
+                <span class="radio-button"></span>
+                <span class="toggle-text">Female</span>
+              </label>
+            </div>
+            <span *ngIf="!user.gender && signupForm.touched" class="error-message">
+              Gender is required.
+            </span>
+          </div>
+          
+          <!-- About -->
+          <div class="form-group">
+            <label for="about">Write about yourself</label>
+            <textarea
+              name="about"
+              id="about"
+              rows="4"
+              class="form-control"
+              placeholder="Tell us about yourself"
+              [(ngModel)]="user.about"
+            ></textarea>
+          </div>
+          
+          <!-- Account link -->
+          <div class="account-link">
+            Already have an account? <a href="" [routerLink]="['/login']">Click here</a>
+          </div>
+          
+          <!-- Button Group -->
+          <div class="button-group">
+            <button
+              [disabled]="loading || !signupForm.valid"
+              type="submit"
+              class="login-btn"
+            >
+              <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="loading"></span>
+              <span *ngIf="!loading">Register</span>
+              <span *ngIf="loading">Please wait...</span>
+            </button>
+            <button
+              type="button"
+              (click)="resetForm(signupForm)"
+              class="create-account-btn"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

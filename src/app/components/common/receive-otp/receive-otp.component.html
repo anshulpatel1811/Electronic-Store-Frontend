@@ -1,0 +1,43 @@
+<!-- Content wrapper to ensure vertical centering -->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="login-box">
+      <div class="left-section">
+        <img src="assets/images/Enter OTP-pana.png" alt="OTP Verification Illustration">
+      </div>
+      <div class="right-section">
+        <div class="welcome-text">
+          <h3>OTP Verification</h3>
+          <p>Please enter the OTP sent to your email.</p>
+        </div>
+
+        <form class="login-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="otp"
+              placeholder="Enter 4 or 6 digit OTP"
+              name="otp"
+              [(ngModel)]="otp"
+              required
+              pattern="^[0-9]{4,6}$"
+              maxlength="6"
+              #otpRef="ngModel"
+            />
+            <!-- Validation messages -->
+            <div *ngIf="otpRef.invalid && otpRef.touched" class="error-message">
+              <small *ngIf="otpRef.errors?.['required']">OTP is required.</small>
+              <small *ngIf="otpRef.errors?.['pattern']">OTP must be 4 digits.</small>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="login-btn" [disabled]="form.invalid">Verify OTP</button>
+            <button type="button" class="create-account-btn" [routerLink]="['/login']">Back to Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

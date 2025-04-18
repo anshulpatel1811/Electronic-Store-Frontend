@@ -1,0 +1,40 @@
+<!-- Save this as assets/images/shopping-girl-cart.svg -->
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="150" cy="150" r="100" fill="#FFF4ED" opacity="0.8"/>
+  
+  <!-- Shopping Cart -->
+  <rect x="110" y="210" width="140" height="60" rx="5" fill="#43BDBA" opacity="0.3"/>
+  <rect x="110" y="235" width="140" height="8" fill="#43BDBA" opacity="0.5"/>
+  <rect x="110" y="190" width="140" height="30" rx="5" fill="#43BDBA" opacity="0.3"/>
+  <circle cx="130" cy="280" r="10" fill="#888"/>
+  <circle cx="230" cy="280" r="10" fill="#888"/>
+  <line x1="120" y1="270" x2="240" y2="270" stroke="#666" stroke-width="2"/>
+  
+  <!-- Shopping Bags -->
+  <rect x="130" y="170" width="30" height="40" rx="5" fill="#43BDBA"/>
+  <rect x="170" y="180" width="25" height="30" rx="5" fill="#FF758C"/>
+  
+  <!-- Girl -->
+  <!-- Head -->
+  <circle cx="180" cy="130" r="25" fill="#FFD3B6"/>
+  <!-- Hair -->
+  <path d="M180 105 C150 105, 145 140, 155 150 C160 140, 200 140, 205 150 C215 140, 210 105, 180 105 Z" fill="#333"/>
+  
+  <!-- Body -->
+  <rect x="165" y="155" width="30" height="40" rx="10" fill="#FFA751"/>
+  
+  <!-- Arms -->
+  <rect x="145" y="155" width="20" height="10" rx="5" fill="#FFD3B6" transform="rotate(-30 145 155)"/>
+  <rect x="195" y="155" width="20" height="10" rx="5" fill="#FFD3B6" transform="rotate(30 195 155)"/>
+  <circle cx="145" cy="155" r="5" fill="#FFD3B6"/>
+  <circle cx="195" cy="155" r="5" fill="#FFD3B6"/>
+  
+  <!-- Legs -->
+  <rect x="160" y="195" width="15" height="40" rx="5" fill="#5E6CD2"/>
+  <rect x="185" y="195" width="15" height="40" rx="5" fill="#5E6CD2"/>
+  
+  <!-- Shoes -->
+  <rect x="155" y="230" width="20" height="10" rx="5" fill="#333"/>
+  <rect x="185" y="230" width="20" height="10" rx="5" fill="#333"/>
+</svg>

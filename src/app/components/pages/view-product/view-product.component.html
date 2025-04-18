@@ -1,0 +1,317 @@
+<div class="container py-4" *ngIf="product">
+  <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+    <!-- Product Header -->
+    <div class="card-header bg-white border-0 pt-4 pb-0">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small">
+          <li class="breadcrumb-item"><a routerLink="/store" class="text-decoration-none">Store</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/category', product.category.categoryId]" class="text-decoration-none">{{product.category.title}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{product.title}}</li>
+        </ol>
+      </nav>
+      <h2 class="fw-bold mb-3 product-title">{{ product.title }}</h2>
+    </div>
+
+    <!-- Product Content -->
+    <div class="card-body">
+      <!-- Product Summary -->
+      <div class="product-summary mb-4">
+        <p class="lead text-secondary">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+          quisquam! Quam doloribus nostrum harum nobis repellendus minus repellat
+          aut voluptates. Fugit pariatur consectetur.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Product Image Column -->
+        <div class="col-md-6">
+          <div class="product-image-container">
+            <div class="position-relative">
+              <!-- Stock Badge -->
+              <div class="position-absolute top-0 end-0 m-3 z-index-1">
+                <span class="badge rounded-pill fs-6 py-2 px-3" 
+                  [ngClass]="{
+                    'bg-primary': product.stock,
+                    'bg-danger': !product.stock
+                  }">
+                  <i class="bi" [ngClass]="{
+                    'bi-check-circle-fill me-2': product.stock,
+                    'bi-x-circle-fill me-2': !product.stock
+                  }"></i>
+                  {{ product.stock ? "In Stock" : "Out of Stock" }}
+                </span>
+              </div>
+              
+              <!-- Sale Badge -->
+              <div class="position-absolute top-0 start-0 m-3" *ngIf="product.price !== product.discountedPrice">
+                <span class="badge bg-success rounded-pill fs-6 py-2 px-3">
+                  {{ ((product.price - product.discountedPrice) / product.price * 100).toFixed(0) }}% OFF
+                </span>
+              </div>
+              
+              <!-- Main Product Image -->
+              <div class="image-container text-center p-4 bg-light rounded-3">
+                <img
+                  onerror="this.src='https://www.automation-expo.asia/wp-content/plugins/ecommerce-product-catalog/img/no-default-thumbnail.png'"
+                  [src]="_productService.getProductImageUrl(product.productId)"
+                  [alt]="product.title"
+                  class="product-image"
+                />
+              </div>
+            </div>
+            
+            <!-- Thumbnails (if available) -->
+            <div class="product-thumbnails d-flex justify-content-center mt-3 gap-2">
+              <div class="thumbnail active">
+                <img [src]="_productService.getProductImageUrl(product.productId)" class="img-thumbnail" [alt]="product.title">
+              </div>
+              <!-- Additional thumbnails would be added here -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Details Column -->
+        <div class="col-md-6">
+          <div class="product-details h-100 d-flex flex-column">
+            <div class="product-info mb-4">
+              <div class="table-responsive">
+                <table class="table product-attributes">
+                  <tbody>
+                    <tr>
+                      <td class="attribute-name">Category</td>
+                      <td class="attribute-value fw-medium">{{ product.title }}</td>
+                    </tr>
+                    <tr>
+                      <td class="attribute-name">Type</td>
+                      <td class="attribute-value fw-medium">{{ product.category.title }}</td>
+                    </tr>
+                    <tr>
+                      <td class="attribute-name">Availability</td>
+                      <td class="attribute-value">
+                        <span class="badge"
+                          [ngClass]="{
+                            'text-bg-primary': product.stock,
+                            'text-bg-danger': !product.stock
+                          }">
+                          {{ product.stock ? "In Stock" : "Out of Stock" }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="price-row">
+                      <td class="attribute-name fs-4">Price</td>
+                      <td class="attribute-value">
+                        <div class="d-flex align-items-center">
+                          <span class="text-decoration-line-through text-muted me-2 fs-5">₹{{ product.price }}</span>
+                          <span class="fw-bold text-success fs-3">₹{{ product.discountedPrice }}</span>
+                        </div>
+                        <div class="savings text-success small fw-medium mt-1" *ngIf="product.price !== product.discountedPrice">
+                          You save: ₹{{ product.price - product.discountedPrice }} ({{ ((product.price - product.discountedPrice) / product.price * 100).toFixed(0) }}%)
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- Product Actions -->
+              <div class="product-actions my-4">
+                <div class="d-grid gap-2 d-md-flex">
+                  <button
+                    (click)="addToCartRequest(product)"
+                    class="btn btn-lg px-5"
+                    [disabled]="!product.stock"
+                    [ngClass]="{
+                      'btn-primary': product.stock,
+                      'btn-danger': !product.stock
+                    }">
+                    <i class="bi bi-cart-plus me-2"></i>
+                    {{ !product.stock ? "Out of Stock" : "Add to Cart" }}
+                  </button>
+                  <button routerLink="/store" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Store
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Shipping & Returns -->
+              <div class="shipping-info mt-4">
+                <div class="d-flex flex-wrap gap-3 text-secondary small">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-truck fs-5 me-2"></i>
+                    <span>Free Shipping</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-shield-check fs-5 me-2"></i>
+                    <span>1 Year Warranty</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-arrow-repeat fs-5 me-2"></i>
+                    <span>30-day Returns</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product Description -->
+      <div class="product-description mt-5">
+        <div class="row">
+          <div class="col-12">
+            <div class="card border-0 bg-light">
+              <div class="card-header bg-light">
+                <ul class="nav nav-tabs card-header-tabs" id="productTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Specifications</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="productTabContent">
+                  <!-- Description Tab -->
+                  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                    <div class="description-content">
+                      <p class="mb-4">The Oculus Quest 2 is a standalone VR headset that offers a wireless, immersive VR experience. It comes with a higher resolution display, a faster processor, and access to a wide range of VR games and applications. Enjoy an easy setup with no PC or console required.</p>
+                      
+                      <p [innerHTML]="product.description"></p>
+                      
+                      <div class="features mt-4">
+                        <h5 class="fw-bold">Key Features:</h5>
+                        <ul>
+                          <li>Standalone device - no PC or console required</li>
+                          <li>High-resolution display for immersive viewing</li>
+                          <li>Advanced processing power</li>
+                          <li>Wireless experience with intuitive controls</li>
+                          <li>Access to a wide library of VR content</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Specifications Tab -->
+                  <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                    <table class="table table-striped">
+                      <tbody>
+                        <tr>
+                          <td>Display</td>
+                          <td>Fast-switch LCD, 1832×1920 per eye</td>
+                        </tr>
+                        <tr>
+                          <td>Storage</td>
+                          <td>128GB / 256GB</td>
+                        </tr>
+                        <tr>
+                          <td>Processor</td>
+                          <td>Qualcomm Snapdragon XR2</td>
+                        </tr>
+                        <tr>
+                          <td>RAM</td>
+                          <td>6GB</td>
+                        </tr>
+                        <tr>
+                          <td>Battery Life</td>
+                          <td>2-3 hours</td>
+                        </tr>
+                        <tr>
+                          <td>Weight</td>
+                          <td>503g</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  <!-- Reviews Tab -->
+                  <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <div class="reviews-summary d-flex align-items-center mb-4">
+                      <div class="display-4 fw-bold me-3">4.7</div>
+                      <div>
+                        <div class="stars text-warning mb-1">
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-half"></i>
+                        </div>
+                        <div class="text-muted">Based on 328 reviews</div>
+                      </div>
+                    </div>
+                    
+                    <div class="review-list">
+                      <div class="review p-3 border-bottom">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <span class="fw-bold">John D.</span>
+                            <div class="stars text-warning small">
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                            </div>
+                          </div>
+                          <div class="text-muted small">2 weeks ago</div>
+                        </div>
+                        <p class="mt-2">Amazing experience right out of the box! The graphics are incredible and the wireless freedom makes gameplay so immersive.</p>
+                      </div>
+                      
+                      <div class="review p-3">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <span class="fw-bold">Maria L.</span>
+                            <div class="stars text-warning small">
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star-fill"></i>
+                              <i class="bi bi-star"></i>
+                            </div>
+                          </div>
+                          <div class="text-muted small">1 month ago</div>
+                        </div>
+                        <p class="mt-2">Great device overall but battery life could be better. I recommend getting the Elite Strap with Battery.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Action Bar -->
+    <div class="card-footer bg-white border-top pt-4 pb-4">
+      <div class="container text-center">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <button
+                (click)="addToCartRequest(product)"
+                class="btn btn-lg px-5"
+                [disabled]="!product.stock"
+                [ngClass]="{
+                  'btn-primary': product.stock,
+                  'btn-danger': !product.stock
+                }">
+                <i class="bi bi-cart-plus me-2"></i>
+                {{ !product.stock ? "Out of Stock" : "Add to Cart" }}
+              </button>
+              <button routerLink="/store" class="btn btn-secondary btn-lg">
+                <i class="bi bi-arrow-left me-2"></i>Back to Store
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

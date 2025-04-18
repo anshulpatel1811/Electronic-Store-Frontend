@@ -1,0 +1,77 @@
+<!-- Content wrapper to ensure vertical centering -->
+<div class="content-wrapper">
+  <div class="container">
+    <div class="login-box">
+      <div class="left-section">
+        <img src="assets/images/login123.png" alt="Shopping girl in cart illustration">
+      </div>
+      <div class="right-section">
+        <div class="welcome-text">
+          <h3>Welcome Back. Please Log In</h3>
+          <p>To Your Account.</p>
+        </div>
+        
+        <form class="login-form" (ngSubmit)="formSubmitted($event)">
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="	Enter your email address"
+              name="email"
+              [(ngModel)]="loginData.email"
+            />
+          </div>
+          
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="	Enter your password"
+              name="password"
+              [(ngModel)]="loginData.password"
+            />
+          </div>
+
+          <!-- CAPTCHA Section -->
+          <div class="form-group captcha-wrapper">
+            <div class="captcha-canvas-container">
+              <canvas #captchaCanvas id="captchaCanvas" width="150" height="50"></canvas>
+              <button type="button" class="refresh-btn" (click)="generateCaptcha()">↻</button>
+            </div>
+
+            <input
+              type="text"
+              class="form-control"
+              id="captcha"
+              placeholder="         Type the characters shown above"
+              name="captcha"
+              [(ngModel)]="captchaInput"
+              required
+            />
+          </div>
+
+
+
+          
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <label class="toggle">
+                <input type="checkbox">
+                <span class="slider"></span>
+                <span class="toggle-text">Remember Password</span>
+              </label>
+            </div>
+            <a href="#" [routerLink]="['/reset-password']" class="forgot-link">Forgot Password?</a>
+          </div>
+          
+          <div class="button-group">
+            <button type="submit" class="login-btn">Login</button>
+            <button type="button" class="create-account-btn" [routerLink]="['/signup']">Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

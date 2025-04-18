@@ -1,0 +1,28 @@
+<div class="categories-container">
+  <h5 class="categories-title">Browse Categories</h5>
+  <div class="list-group">
+    <a
+      [routerLink]="'/store'"
+      class="list-group-item list-group-item-action"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      <img
+        class="cat-image"
+        [src]="'https://i.insider.com/5ed95c393f7370198527eea3?width=700'"
+        alt="All Products"
+      />
+      <span class="fs-6">All Products</span>
+    </a>
+
+    <a
+      [routerLink]="['/store', cat.categoryId, cat.title]"
+      *ngFor="let cat of categories"
+      routerLinkActive="active"
+      class="list-group-item list-group-item-action"
+    >
+      <img class="cat-image" [src]="cat.coverImage" alt="{{cat.title}}" />
+      <span class="fs-6">{{ cat.title }}</span>
+    </a>
+  </div>
+</div>

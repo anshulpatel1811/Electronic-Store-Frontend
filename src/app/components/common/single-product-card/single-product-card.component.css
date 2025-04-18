@@ -1,0 +1,141 @@
+/* Product Card Styling */
+.product-card {
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Product Image Styling */
+.card-img-container {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  max-height: 180px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* Product Info Section */
+.product-info {
+  margin-top: 10px;
+}
+
+/* Product Title */
+.product-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  height: 40px;
+  overflow: hidden;
+  display: block;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Product Description */
+.product-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  height: 60px;
+  overflow: hidden;
+  
+  /* Standard syntax for modern browsers */
+  display: block;
+  line-clamp: 3; /* Standard property */
+  
+  /* Vendor-prefixed versions for Webkit-based browsers (Chrome, Safari, Edge, etc.) */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Webkit-based browsers (Chrome, Safari, etc.) */
+  -webkit-box-orient: vertical;
+
+  /* Ensure proper text wrapping */
+  word-wrap: break-word;
+}
+
+
+/* Price Styling */
+.price-container {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.original-price {
+  margin-right: 8px;
+  font-size: 0.9em;
+}
+
+.discounted-price {
+  font-size: 1.2em;
+}
+
+/* Button Styling */
+.card-footer {
+  padding: 1rem;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #ffca2c;
+  border-color: #ffc720;
+  color: #212529;
+}
+
+/* Badge Styling */
+.badge {
+  font-weight: 500;
+  padding: 0.5em 0.7em;
+  font-size: 0.75rem;
+}
+
+/* Out of Stock Styling */
+.text-danger .product-title {
+  color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-img-container {
+    height: 160px;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+  }
+  
+  .product-description {
+    font-size: 0.85rem;
+  }
+}
