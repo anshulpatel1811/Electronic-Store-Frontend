@@ -60,4 +60,11 @@ export class SingleProductCardComponent {
       this._toastr.error('Need to login first ');
     }
   }
+
+  stripHtmlTags(input: string): string {
+    // Create a temporary DOM element to convert HTML to text
+    let doc = new DOMParser().parseFromString(input, 'text/html');
+    return doc.body.textContent || "";
+  }
+  
 }

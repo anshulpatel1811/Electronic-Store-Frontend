@@ -26,6 +26,7 @@ import { MyOrdersComponent } from './components/pages/my-orders/my-orders.compon
 import { ForgetPasswordComponent } from './components/common/forget-password/forget-password.component';
 import { ReceiveOtpComponent } from './components/common/receive-otp/receive-otp.component';
 import { NewPasswordComponent } from './components/common/new-password/new-password.component';
+import { NotfoundComponent } from './components/common/notfound/notfound.component';
 const routes: Routes = [
   {
     path: '',
@@ -38,6 +39,7 @@ const routes: Routes = [
     component: HomeComponent,
     title: 'Home: Electronic Store',
   },
+ 
   {
     path: 'store',
     component: StoreComponent,
@@ -151,6 +153,12 @@ const routes: Routes = [
         title: 'All Users',
       },
     ],
+    
+  },
+  {
+    path: '**',
+    component: NotfoundComponent,
+    title: 'Home: Electronic Store',
   },
 ];
 

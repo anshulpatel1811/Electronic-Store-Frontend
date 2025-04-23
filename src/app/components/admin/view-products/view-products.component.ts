@@ -21,6 +21,10 @@ export class ViewProductsComponent implements OnInit {
   categories: Category[] = [];
   searchQuery = '';
   searchMode = false;
+  sortBy = 'title';  // Default sort by Name
+  sortDir = 'asc';   // Default sort ascending
+  pageSize = 10;     // Default items per page
+
   constructor(
     public productService: ProductService,
     private toatrService: ToastrService,
@@ -35,23 +39,30 @@ export class ViewProductsComponent implements OnInit {
 
   loadProducts(pageNumber = 0) {
     this.productService
-      .getAllProducts(pageNumber, 10, 'addedDate', 'desc')
+      .getAllProducts(pageNumber, this.pageSize, this.sortBy, this.sortDir)
       .subscribe({
         next: (productResponse) => {
           this.productsResponse = productResponse;
-          console.log(this.productsResponse);
         },
+        error: (err) => {
+          console.error('Error loading products', err);
+          this.toastr.error('Failed to load products');
+        }
       });
   }
-
+  
   pageChange(page: number) {
-    console.log(page);
+    if (page < 1) return; // 👈 prevent negative page number
+  
+    const pageIndex = page - 1;
+  
     if (this.searchMode) {
-      this.productSearchService(page - 1);
+      this.productSearchService(pageIndex, this.pageSize, this.sortBy, this.sortDir);
     } else {
-      this.loadProducts(page - 1);
+      this.loadProducts(pageIndex);
     }
   }
+  
 
   open(content: any, product: Product) {
     this.modalService
@@ -221,29 +232,29 @@ export class ViewProductsComponent implements OnInit {
   // search product service
   productSearchService(
     pageNumber: number = 0,
-    pageSize: number = 10,
-    sortBy: string = 'title',
-    sortDir: string = 'asc'
+    pageSize: number = this.pageSize,
+    sortBy: string = this.sortBy,
+    sortDir: string = this.sortDir
   ) {
-    console.log('page number : ' + pageNumber);
-
     this.productService
       .searchProduct(this.searchQuery, pageNumber, pageSize, sortBy, sortDir)
       .subscribe({
         next: (data) => {
-          console.log(data);
           if (this.searchMode) {
             this.productsResponse = data;
           } else {
             this.oldProductsResponse = this.productsResponse;
             this.productsResponse = data;
             this.searchMode = true;
-            console.log('old resposne');
-            console.log(this.oldProductsResponse);
           }
         },
+        error: (err) => {
+          console.error('Search error:', err);
+          this.toastr.error('Failed to search products');
+        }
       });
   }
+  
 
   restoreOldData() {
     if (this.searchQuery.trim() == '' && this.oldProductsResponse) {

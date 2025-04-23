@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ForgetPasswordService } from 'src/app/services/forget-password-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { ForgetPasswordService } from 'src/app/services/forget-password-service.service';
 
 @Component({
   selector: 'app-forget-password',
@@ -19,22 +19,28 @@ export class ForgetPasswordComponent {
   ) {}
 
   onSubmit(form: any) {
-    if (form.invalid) return;
+    if (form.invalid) {
+      this.toastr.error('Please enter a valid email');
+      return;
+    }
 
     this.forgetPasswordService.sendOtp(this.email).subscribe({
-      next: (response: string) => {
-        if (response.includes('User not exists')) {
-          this.toastr.error('User not found with this email ID!');
-        } else {
-          console.log(response);
-          this.toastr.success('OTP sent to your email!');
-          this.router.navigate(['/receive-otp']);
+      next: (res: any) => {
+        console.log('Response from backend:', res); // Log to check the response
+        if (res === 'success') {
+          this.toastr.success('OTP sent successfully!');
+          this.router.navigate(['/receive-otp'],{ queryParams: { email: this.email } });
         }
       },
       error: (err) => {
-        console.error(err);
-        this.toastr.error('Something went wrong while sending OTP!');
+        if (err.status === 404 && err.error === 'User not found with this email') {
+          this.toastr.error('User not found with this email!');
+        } else {
+          this.toastr.error('Something went wrong!');
+        }
       }
     });
   }
+
+
 }

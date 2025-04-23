@@ -31,8 +31,9 @@
     <div class="product-info">
       <!-- Product Description - using div instead of p -->
       <div class="product-description text-secondary mb-3">
-        {{ product.description }}
+        {{ stripHtmlTags(product.description) }}
       </div>
+      
       
       <!-- Product Price -->
       <div class="price-container mb-3">

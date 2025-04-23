@@ -56,8 +56,12 @@
     padding: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Adjusted from center to top-align */
+    max-height: 600px; /* Set a fixed height for scroll area */
+    overflow-y: auto; /* Enable vertical scrollbar if needed */
+    scroll-behavior: smooth;
   }
+  
   
   .welcome-text {
     margin-bottom: 30px;

@@ -12,14 +12,14 @@ export class PaymentService {
   constructor(private _http: HttpClient) {}
   initiatePayment(orderId: string) {
     return this._http.post(
-      `${environment.apiUrl}/payments/initiate-payment/${orderId}`,
+      `${environment.apiUrl}/payment/initiate-payment/${orderId}`,
       {}
     );
   }
 
   captureAndVarifyPayment(orderId: string, paymentData: any) {
     return this._http.post(
-      `${environment.apiUrl}/payments/capture/${orderId}`,
+      `${environment.apiUrl}/payment/capture/${orderId}`,
       paymentData
     );
   }

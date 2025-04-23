@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-lg sticky-top" style="background-color: #121212;">
   <div class="container">
-    <a class="navbar-brand text-light fw-bold" href="/home" [routerLink]="'/home'" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1px;">
-      Electronic Store
-    </a>
+    <a class="navbar-brand text-light d-flex align-items-center" [routerLink]="'/home'" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1px;">
+  <img src="assets/images/download1.png" alt="Logo" height="35" class="me-2" />
+  <!-- <span class="fw-bold">Electronic Store</span> -->
+</a>
+
+    
 
     <button
       class="navbar-toggler"
@@ -83,9 +86,6 @@
         </li>
       </ul>
       
-      
-      
-
       <ul class="navbar-nav" *ngIf="!loginData?.login">
         <li class="nav-item">
           <a class="nav-link text-light" href="/login" [routerLink]="['/login']" style="font-family: 'Roboto', sans-serif; font-weight: 500;">Login</a>

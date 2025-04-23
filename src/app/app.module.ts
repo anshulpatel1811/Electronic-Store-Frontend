@@ -82,6 +82,7 @@ import { ForgetPasswordComponent } from './components/common/forget-password/for
 import { ReceiveOtpComponent } from './components/common/receive-otp/receive-otp.component';
 import { NewPasswordComponent } from './components/common/new-password/new-password.component';
 import { FooterComponent } from './components/common/footer/footer.component';
+import { NotfoundComponent } from './components/common/notfound/notfound.component';
 
 
 const icons = {
@@ -140,6 +141,7 @@ const icons = {
     ReceiveOtpComponent,
     NewPasswordComponent,
     FooterComponent,
+    NotfoundComponent,
    
   ],
   imports: [
@@ -179,6 +181,7 @@ const icons = {
     }),
     NgxUiLoaderRouterModule,
     NgxUiLoaderHttpModule.forRoot({}),
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {

@@ -1,0 +1,178 @@
+/* notfound.component.css */
+.error-container {
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    margin: 120px auto 80px;  /* Added margin-bottom to create space for footer */
+    position: relative;
+}
+
+.error-code {
+    font-size: 140px;
+    font-weight: bold;
+    color: #0091ff;
+    line-height: 1;
+}
+
+.error-text {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.robot {
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}
+
+.robot-head {
+    width: 60px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 5px;
+    position: relative;
+}
+
+.robot-eye {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #0091ff;
+    border-radius: 50%;
+    top: 15px;
+}
+
+.robot-eye.left {
+    left: 12px;
+}
+
+.robot-eye.right {
+    right: 12px;
+}
+
+.robot-antenna {
+    width: 5px;
+    height: 15px;
+    background-color: #333;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.robot-antenna::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #0091ff;
+    border-radius: 50%;
+    top: -5px;
+    left: 0;
+}
+
+.robot-body {
+    width: 80px;
+    height: 70px;
+    background-color: #333;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.robot-button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.robot-button.red {
+    background-color: red;
+    top: 15px;
+    left: 15px;
+}
+
+.robot-button.yellow {
+    background-color: yellow;
+    top: 15px;
+    right: 15px;
+}
+
+.robot-button.green {
+    background-color: green;
+    bottom: 15px;
+    left: 15px;
+}
+
+.robot-button.blue {
+    background-color: blue;
+    bottom: 15px;
+    right: 15px;
+}
+
+.robot-legs {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+    margin-top: 10px;
+}
+
+.robot-leg {
+    width: 20px;
+    height: 30px;
+    background-color: #333;
+    border-radius: 0 0 5px 5px;
+}
+
+.message {
+    font-size: 16px;
+    color: #666;
+    margin: 20px 0 30px;
+    padding: 0 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #0091ff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #0091ff;
+    border: 1px solid #0091ff;
+}
+
+@media (max-width: 480px) {
+    .error-code {
+        font-size: 100px;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 80%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+}

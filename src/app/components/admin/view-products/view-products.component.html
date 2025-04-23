@@ -1,29 +1,52 @@
 <div class="row mt-4">
   <div class="col-md-12">
-    <div class="card shadow-sm border">
+    <div class="card shadow-sm border rounded">
       <div class="card-body">
         <div class="table-responsive" *ngIf="productsResponse">
-          <!-- <label class="text-muted" for="">Search Query Box</label> -->
-          <h3 class="my-3">{{ searchMode ? "Seach Mode" : "Product Mode" }}</h3>
-          <div class="search-field-container input-group">
+          <h3 class="my-3">{{ searchMode ? "Search Mode" : "Product Mode" }}</h3>
+
+          <!-- Sorting Options (Dropdown) -->
+          <!-- <div class="d-flex justify-content-between mb-4">
+            <div class="d-flex">
+              <select [(ngModel)]="sortBy" (change)="pageChange(0)" class="form-select me-2">
+                <option value="title">Sort by Name</option>
+                <option value="price">Sort by Price</option>
+                <option value="discountedPrice">Sort by Discounted Price</option>
+                <option value="live">Sort by Live</option>
+              </select>
+              <select [(ngModel)]="sortDir" (change)="pageChange(0)" class="form-select">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </div> -->
+
+            <!-- Items per page (Dropdown) -->
+            <!-- <select [(ngModel)]="pageSize" (change)="pageChange(0)" class="form-select">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div> -->
+
+          <!-- Search Field -->
+          <div class="search-field-container input-group mb-4">
             <input
               type="text"
               name="query"
-              placeholder="Search here"
+              placeholder="Search products"
               id="query"
               [(ngModel)]="searchQuery"
               class="form-control rounded-0"
               (keyup)="restoreOldData()"
             />
-            <button
-              (click)="searchProduct()"
-              class="btn btn-outline-secondary rounded-0"
-            >
+            <button (click)="searchProduct()" class="btn btn-outline-secondary rounded-0">
               Search
             </button>
           </div>
-          <table class="table table-bordered table-hover">
-            <thead class="bg-dark text-white">
+
+          <table class="table table-hover table-striped">
+            <thead class="table-dark text-white">
               <tr>
                 <th scope="col">S.No.</th>
                 <th scope="col">Name</th>
@@ -36,65 +59,42 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody class="table-group-divider">
-              <tr
-                *ngFor="let product of productsResponse?.content; let i = index"
-              >
-                <td>
-                  {{ i + 1 }}
+            <tbody>
+              <tr *ngFor="let product of productsResponse?.content; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td class="cursor-pointer" (click)="open(content, product)">
+                  <strong>{{ product.title }}</strong>
                 </td>
-                <td
-                  role="button"
-                  class="cursor-pointer"
-                  (click)="open(content, product)"
-                >
-                  {{ product.title }}
-                </td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.price | currency: 'INR' : 'symbol' }}</td>
+                <td>{{ product.discountedPrice | currency }}</td>
                 <td>
-                  {{ product.quantity }}
-                </td>
-                <td>
-                  {{ product.price }}
-                </td>
-
-                <td>
-                  {{ product.discountedPrice }}
+                  <span class="badge" [ngClass]="{
+                      'bg-success': product.stock,
+                      'bg-danger': !product.stock
+                    }">
+                    {{ product.stock ? "In Stock" : "Out Of Stock" }}
+                  </span>
                 </td>
                 <td>
-                  <span
-                    class="badge"
-                    [ngClass]="{
-                      'text-bg-success': product.stock,
-                      'text-bg-danger': !product.stock
-                    }"
-                  >
-                    {{ product.stock ? "In Stock" : "Out Of Stock" }}</span
-                  >
+                  <span class="badge" [ngClass]="{
+                      'bg-success': product.live,
+                      'bg-danger': !product.live
+                    }">
+                    {{ product.live ? "Live" : "Not Live" }}
+                  </span>
                 </td>
-                <td>
-                  <span
-                    class="badge"
-                    [ngClass]="{
-                      'text-bg-success': product.live,
-                      'text-bg-danger': !product.live
-                    }"
-                  >
-                    {{ product.live ? "Live" : "Not Live" }}</span
-                  >
-                </td>
-                <td>
-                  {{ product.category.title }}
-                </td>
-                <td>
+                <td>{{ product.category.title }}</td>
+                <td class="d-flex">
                   <button
-                    class="btn btn-primary btn-sm"
+                    class="btn btn-primary btn-sm me-2"
                     (click)="toggleUpdateView(content, product)"
                   >
                     Update
                   </button>
                   <button
                     [swal]="confirmSwal"
-                    class="btn btn-danger ms-2 btn-sm"
+                    class="btn btn-danger btn-sm"
                     (confirm)="yesDeleteProduct($event, product)"
                   >
                     Delete
@@ -103,17 +103,17 @@
               </tr>
             </tbody>
           </table>
-          <div class="d-flex justify-content-end" *ngIf="productsResponse">
-            <div>
-              <ngb-pagination
-                [collectionSize]="productsResponse.totalElements"
-                [page]="productsResponse.pageNumber + 1"
-                [pageSize]="productsResponse.pageSize"
-                [ellipses]="true"
-                [maxSize]="10"
-                (pageChange)="pageChange($event)"
-              ></ngb-pagination>
-            </div>
+
+          <!-- Pagination -->
+          <div class="d-flex justify-content-end mt-3">
+            <ngb-pagination
+              [collectionSize]="productsResponse.totalElements"
+              [page]="productsResponse.pageNumber + 1"
+              [pageSize]="pageSize"
+              [ellipses]="true"
+              [maxSize]="10"
+              (pageChange)="pageChange($event)"
+            ></ngb-pagination>
           </div>
         </div>
       </div>

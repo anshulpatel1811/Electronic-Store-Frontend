@@ -7,11 +7,25 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  
+  
   constructor(private httpClient: HttpClient) {}
 
   // signup logic
   signupUser(user: User) {
     return this.httpClient.post<User>(`${environment.apiUrl}/users`, user);
+  }
+
+  searchUserPaginated(
+    searchQuery: string,
+    pageNumber: number,
+    pageSize: number,
+    sortBy: string,
+    sortDir: string
+  ) {
+    return this.httpClient.get<UsersResponse>(
+      `${environment.apiUrl}/users/search/paginated?query=${searchQuery}&pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&sortDir=${sortDir}`
+    );
   }
 
   getUserImageUrl(userId: string) {
